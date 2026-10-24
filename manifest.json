@@ -1,23 +1,27 @@
 {
   "manifest_version": 3,
   "name": "JSONL to JSON Converter",
-  "version": "1.0.0",
-  "description": "Convert JSONL files to JSON array format",
-  "action": {
-    "default_popup": "popup.html",
-    "default_title": "JSONL to JSON Converter",
-    "default_icon": {
-      "16": "icon16.png",
-      "32": "icon32.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
-    }
-  },
+  "version": "2.0.0",
+  "description": "Convert JSONL ⇄ JSON, browse records as a table, export CSV. Handles large files and bad lines. 100% local, no tracking.",
+  "minimum_chrome_version": "116",
   "icons": {
     "16": "icon16.png",
     "32": "icon32.png",
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "permissions": ["clipboardWrite"]
+  "action": {
+    "default_title": "Open JSONL to JSON Converter",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "app.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["sidePanel", "clipboardWrite"]
 }

@@ -1,30 +1,26 @@
-# JSONL → JSON Converter
+# JSONL ⇄ JSON Converter
 
-A lightweight Chrome extension that converts **JSONL (JSON Lines)** data into formatted JSON, making newline-delimited records easier to inspect, copy, and work with.
+A Chrome extension for converting and inspecting **JSONL (JSON Lines / NDJSON)** files: JSONL → JSON, JSON → JSONL, a table view, and CSV export. Everything runs locally in your browser, with no uploads, analytics, or tracking.
 
-This repository contains the **basic v1 version** of the web extension published in the Chrome Web Store.
+Useful for LLM fine-tuning and eval datasets, AI agent session logs, application logs, and database exports.
 
-## Features
+## What's new in v2.0
 
-- Convert JSONL data into JSON.
-- Work with newline-delimited JSON records in a simple browser interface.
-- Format converted output for easier reading and debugging.
-- Useful for developers working with logs, exports, APIs, and data-processing workflows.
+- **Side panel UI.** Clicking the toolbar icon opens the converter in Chrome's side panel, which stays open while you pick or drag in a file. An **Open in tab** button gives you a full-width view.
+- **Paste input.** Use the Paste tab, or press ⌘/Ctrl+V anywhere in the extension.
+- **Both directions.** JSONL → JSON array and JSON array → JSONL. **Auto** mode picks the direction from the file.
+- **Errors per line.** Invalid lines are listed with their line number, error, and a preview, then skipped. Turn off "Skip invalid lines" if any bad line should stop the conversion.
+- **Large files.** Parsing runs in a Web Worker and only visible rows are rendered, so 100 MB+ files stay responsive.
+- **Table view.** Each record is a row and each top-level key a column. Nested values are shown as JSON.
+- **CSV export.** Opens correctly in Excel and Google Sheets, and cells that look like formulas are escaped.
+- **Output options.** 2-space, 4-space, or minified JSON.
+- **Light and dark theme.** Follows your system setting.
 
-## Version 1
+## Install
 
-This is the initial/basic version of the extension. It focuses on providing a simple way to convert JSONL input into JSON output directly in the browser.
+**From the Chrome Web Store:** search for "JSONL to JSON Converter".
 
-## Chrome Web Store performance
-
-According to the Chrome Web Store analytics shared for this project, the extension has reached:
-
-- **86+ installs**
-- **91 page views**
-
-These figures represent the early adoption of the v1 release.
-
-## Getting started
+**From source:**
 
 1. Clone this repository:
 
@@ -32,11 +28,10 @@ These figures represent the early adoption of the v1 release.
    git clone https://github.com/RathnamS089/jsonl-json-converter.git
    ```
 
-2. Open `chrome://extensions` in Google Chrome.
-3. Enable **Developer mode**.
-4. Select **Load unpacked**.
-5. Choose the repository directory.
-6. Open the extension and paste JSONL data to convert it.
+2. Open `chrome://extensions` in Google Chrome (version 116 or newer).
+3. Turn on **Developer mode**.
+4. Click **Load unpacked** and choose the repository folder.
+5. Click the extension's toolbar icon to open the side panel.
 
 ## Example
 
@@ -62,15 +57,33 @@ These figures represent the early adoption of the v1 release.
 ]
 ```
 
+## Project structure
+
+| File | Purpose |
+| --- | --- |
+| `manifest.json` | MV3 manifest (permissions: `sidePanel`, `clipboardWrite`) |
+| `background.js` | Opens the side panel when the toolbar icon is clicked |
+| `app.html`, `app.css`, `app.js` | The converter UI and the virtualized text and table views |
+| `worker.js` | Parsing, conversion, and CSV export, run off the main thread |
+
+## Packaging for the Chrome Web Store
+
+```bash
+zip jsonl-json-converter.zip manifest.json background.js app.html app.css app.js worker.js icon16.png icon32.png icon48.png icon128.png
+```
+
+`privacy-practices.md` and `store-listing.md` contain the text for the Developer Dashboard. They are not part of the package.
+
+## Chrome Web Store performance
+
+The v1 release reached **86+ installs** and **91 page views**.
+
 ## Roadmap
 
-Potential improvements for future versions include:
-
-- Better validation and error messages.
-- Copy and download buttons for converted output.
-- Support for larger JSONL files.
-- Additional formatting options.
-- Improved user interface and accessibility.
+- Search and filter across records
+- Collapsible tree view
+- Chat transcript view for LLM conversation logs (`role` / `content` records)
+- Firefox version of v2
 
 ## Contributing
 

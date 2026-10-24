@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSONL to JSON</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      JSONL ⇄ JSON
+    </h1>
+    <button class="btn btn-ghost" id="openTabBtn" title="Open in a full browser tab" hidden>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
+      Open in tab
+    </button>
+  </header>
+
+  <section class="input">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-input="file" role="tab">File</button>
+      <button class="tab" data-input="paste" role="tab">Paste</button>
+    </div>
+
+    <div class="input-pane" id="filePane">
+      <div class="drop-zone" id="dropZone" tabindex="0">
+        <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        <div>
+          <div class="drop-text" id="dropText">Drop a .jsonl or .json file</div>
+          <div class="drop-hint">or click to browse · paste anywhere with ⌘/Ctrl+V</div>
+        </div>
+        <input type="file" class="file-input" id="fileInput" accept=".jsonl,.ndjson,.json,.txt,.log">
+      </div>
+    </div>
+
+    <div class="input-pane" id="pastePane" hidden>
+      <textarea id="pasteInput" spellcheck="false" placeholder='{"id":1,"name":"a"}&#10;{"id":2,"name":"b"}'></textarea>
+      <button class="btn btn-primary" id="convertBtn">Convert <kbd>⌘/Ctrl+Enter</kbd></button>
+    </div>
+
+    <div class="options">
+      <div class="segmented" role="radiogroup" aria-label="Direction">
+        <button data-dir="auto" class="active">Auto</button>
+        <button data-dir="jsonl2json">JSONL→JSON</button>
+        <button data-dir="json2jsonl">JSON→JSONL</button>
+      </div>
+      <label class="opt">Indent
+        <select id="indentSelect">
+          <option value="2">2 spaces</option>
+          <option value="4">4 spaces</option>
+          <option value="0">Minified</option>
+        </select>
+      </label>
+      <label class="opt"><input type="checkbox" id="skipInvalid" checked> Skip invalid lines</label>
+    </div>
+  </section>
+
+  <div class="status" id="status" hidden>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <span id="statusText"></span>
+  </div>
+
+  <details class="errors" id="errors" hidden>
+    <summary id="errorsSummary"></summary>
+    <ol id="errorList"></ol>
+  </details>
+
+  <section class="result" id="result" hidden>
+    <div class="result-header">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-view="text" role="tab" id="textTab">JSON</button>
+        <button class="tab" data-view="table" role="tab">Table</button>
+      </div>
+      <span class="stats" id="stats"></span>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" id="copyBtn">Copy</button>
+      <button class="btn btn-secondary" id="downloadBtn">Save</button>
+      <button class="btn btn-secondary" id="csvBtn">Save .csv</button>
+    </div>
+    <div class="viewer">
+      <div class="table-head" id="tableHead" hidden></div>
+      <div class="vlist" id="vlist"></div>
+    </div>
+    <div class="note" id="note" hidden></div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
