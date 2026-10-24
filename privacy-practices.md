@@ -25,20 +25,14 @@ User data sold: NO
 User data shared: NO
 Analytics/tracking: NO
 
-=== REQUIRED URLs (create simple pages or use GitHub) ===
-Homepage URL: https://github.com/YOURUSERNAME/jsonl-converter
-Support URL: https://github.com/YOURUSERNAME/jsonl-converter/issues
-Privacy Policy URL: https://github.com/YOURUSERNAME/jsonl-converter/blob/main/PRIVACY.md
+=== REQUIRED URLs ===
+Homepage URL: https://github.com/RathnamS089/jsonl-json-converter
+Support URL: https://github.com/RathnamS089/jsonl-json-converter/issues
+Privacy Policy URL: https://github.com/RathnamS089/jsonl-json-converter/blob/main/PRIVACY.md
 
 === CONTACT EMAIL ===
 Add your email in Developer Dashboard > Settings > Contact email
 Then verify it via the link sent to that email.
 
-=== PRIVACY POLICY (minimal) ===
-Create PRIVACY.md in your repo:
----
-# Privacy Policy
-JSONL to JSON Converter does not collect, store, or transmit any user data.
-All file processing occurs locally in your browser.
-No analytics, no tracking, no external connections.
----
+=== PRIVACY POLICY ===
+See PRIVACY.md in the repo (linked above as the Privacy Policy URL).
